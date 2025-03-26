@@ -1,0 +1,134 @@
+/* src/styles/Auth.css */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .auth-form-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .auth-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  
+  .form-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  
+  .form-group input,
+  .form-group select {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: #ff4757;
+  }
+  
+  .input-error {
+    border-color: #ff4757 !important;
+  }
+  
+  .error-message {
+    color: #ff4757;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+  }
+  
+  .auth-button {
+    background-color: #31511E;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+  }
+  
+  .auth-button:hover {
+    background-color: #5f9242;
+  }
+  
+  .auth-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .auth-redirect {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #666;
+  }
+  
+  .auth-redirect a {
+    color: #31511E;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .auth-redirect a:hover {
+    text-decoration: underline;
+  }
+  
+  .forgot-password {
+    text-align: right;
+    margin-top: -0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .forgot-password a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  
+  .forgot-password a:hover {
+    color: #31511E;
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 500px) {
+    .auth-form-container {
+      padding: 1.5rem;
+    }
+    
+    .auth-title {
+      font-size: 1.75rem;
+    }
+  }
