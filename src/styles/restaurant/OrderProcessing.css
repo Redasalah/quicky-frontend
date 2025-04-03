@@ -1,0 +1,234 @@
+/* src/styles/restaurant/OrderProcessing.css */
+.order-status-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.order-status-tabs button {
+  padding: 10px 20px;
+  background-color: #ecf0f1;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background-color 0.3s;
+}
+
+.order-status-tabs button:hover {
+  background-color: #bdc3c7;
+}
+
+.order-status-tabs button.active {
+  background-color: #3498db;
+  color: white;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.order-card {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.order-id-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.order-id-section h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #2c3e50;
+}
+
+.order-status {
+  font-size: 14px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.order-status.pending {
+  background-color: #f39c12;
+  color: #fff;
+}
+
+.order-status.confirmed {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.order-status.preparing {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.order-status.ready_for_delivery {
+  background-color: #27ae60;
+  color: #fff;
+}
+
+.order-status.out_for_delivery {
+  background-color: #9b59b6;
+  color: #fff;
+}
+
+.order-status.delivered {
+  background-color: #2ecc71;
+  color: #fff;
+}
+
+.order-status.cancelled {
+  background-color: #7f8c8d;
+  color: #fff;
+}
+
+.order-time {
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+.order-content {
+  display: flex;
+  padding: 15px;
+}
+
+.customer-details {
+  flex: 1;
+  padding-right: 15px;
+  border-right: 1px solid #e9ecef;
+}
+
+.customer-details h4, .order-items-details h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.customer-details p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+.order-items-details {
+  flex: 2;
+  padding-left: 15px;
+}
+
+.order-items-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+}
+
+.order-items-list li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+.order-total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 16px;
+  color: #2c3e50;
+  padding-top: 10px;
+  border-top: 1px solid #e9ecef;
+}
+
+.order-actions {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+}
+
+.action-button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.action-button.accept {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.action-button.accept:hover {
+  background-color: #2980b9;
+}
+
+.action-button.prepare {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.action-button.prepare:hover {
+  background-color: #c0392b;
+}
+
+.action-button.ready {
+  background-color: #27ae60;
+  color: #fff;
+}
+
+.action-button.ready:hover {
+  background-color: #219955;
+}
+
+.action-button.cancel {
+  background-color: #7f8c8d;
+  color: #fff;
+}
+
+.action-button.cancel:hover {
+  background-color: #6c7a89;
+}
+
+.action-button.print {
+  background-color: #ecf0f1;
+  color: #2c3e50;
+}
+
+.action-button.print:hover {
+  background-color: #bdc3c7;
+}
+
+.no-orders-message {
+  text-align: center;
+  padding: 30px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  color: #7f8c8d;
+  font-size: 16px;
+}

@@ -1,0 +1,282 @@
+/* src/styles/Restaurant/RestaurantDashboard.css */
+.restaurant-dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .restaurant-dashboard-header {
+    margin-bottom: 2rem;
+  }
+  
+  .restaurant-dashboard-header h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .restaurant-dashboard-header p {
+    color: #666;
+    font-size: 1.1rem;
+  }
+  
+  .restaurant-stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .restaurant-stat-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #31511E;
+  }
+  
+  .restaurant-stat-card h3 {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+  }
+  
+  .restaurant-actions-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .restaurant-action-button {
+    flex: 1;
+    display: block;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .restaurant-action-button.primary {
+    background-color: #31511E;
+    color: white;
+  }
+  
+  .restaurant-action-button.primary:hover {
+    background-color: #5f9242;
+  }
+  
+  .restaurant-action-button.secondary {
+    background-color: white;
+    color: #31511E;
+    border: 2px solid #31511E;
+  }
+  
+  .restaurant-action-button.secondary:hover {
+    background-color: #f5f9f1;
+  }
+  
+  .active-orders-container,
+  .completed-orders-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
+  
+  .active-orders-container h2,
+  .completed-orders-container h2 {
+    margin-top: 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    color: #333;
+  }
+  
+  .orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .order-card {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .order-card.completed {
+    opacity: 0.8;
+  }
+  
+  .order-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f6f6f6;
+  }
+  
+  .order-card-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  .order-card-header p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .order-status {
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  
+  .order-status.received {
+    background-color: #ebf5ff;
+    color: #3182ce;
+  }
+  
+  .order-status.preparing {
+    background-color: #feebcb;
+    color: #dd6b20;
+  }
+  
+  .order-status.ready-for-pickup {
+    background-color: #e6fffa;
+    color: #319795;
+  }
+  
+  .order-status.picked-up,
+  .order-status.delivered {
+    background-color: #e6f7ed;
+    color: #0d8a30;
+  }
+  
+  .order-items {
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .order-item {
+    display: flex;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .order-item:last-child {
+    margin-bottom: 0;
+  }
+  
+  .item-quantity {
+    font-weight: 600;
+    color: #31511E;
+    margin-right: 0.75rem;
+  }
+  
+  .item-name {
+    color: #333;
+  }
+  
+  .order-card-footer {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .order-total {
+    font-weight: 600;
+    margin: 0;
+    color: #333;
+  }
+  
+  .order-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+  
+  .status-update-button {
+    padding: 0.5rem 0.75rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #31511E;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .status-update-button:hover {
+    background-color: #5f9242;
+  }
+  
+  .no-orders-message {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    font-style: italic;
+  }
+  
+  .view-all-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  
+  .view-all-button {
+    padding: 0.75rem 1.5rem;
+    background-color: white;
+    color: #31511E;
+    border: 1px solid #31511E;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .view-all-button:hover {
+    background-color: #f5f9f1;
+  }
+  
+  .restaurant-loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .restaurant-stats-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .restaurant-actions-container {
+      flex-direction: column;
+    }
+    
+    .order-card-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }

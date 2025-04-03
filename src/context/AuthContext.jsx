@@ -49,11 +49,12 @@ export const AuthProvider = ({ children }) => {
       // const response = await api.post('/auth/login', { email, password });
       
       // For now, simulate successful login with mock data
+      // You can change the role to test different dashboards
       const mockUser = {
         id: '123',
         name: 'John Doe',
         email,
-        role: 'CUSTOMER',
+        role: email.includes('delivery') ? 'DELIVERY_PERSONNEL' : (email.includes('restaurant') ? 'RESTAURANT_STAFF' : 'CUSTOMER'),
         token: 'mock-jwt-token'
       };
       
@@ -109,6 +110,21 @@ export const AuthProvider = ({ children }) => {
   // Check if user is authenticated
   const isAuthenticated = !!user;
   
+  // Get appropriate dashboard URL based on user role
+  const getDashboardUrl = () => {
+    if (!user) return '/dashboard';
+    
+    switch(user.role) {
+      case 'DELIVERY_PERSONNEL':
+        return '/Delivery/dashboard';
+      case 'RESTAURANT_STAFF':
+        return '/restaurant/dashboard';
+      case 'CUSTOMER':
+      default:
+        return '/dashboard';
+    }
+  };
+  
   // Create the context value object
   const authContextValue = {
     user,
@@ -117,7 +133,8 @@ export const AuthProvider = ({ children }) => {
     register,
     logout,
     isAuthenticated,
-    hasRole
+    hasRole,
+    getDashboardUrl
   };
   
   return (
