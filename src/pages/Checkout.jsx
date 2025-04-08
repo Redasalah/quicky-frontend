@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import '../styles/Checkout.css';
 
@@ -117,7 +116,7 @@ const { items, subtotal, clearCart, updateQuantity, removeItem } = useCart();
   if (items.length === 0) {
     return (
       <>
-        <Navbar />
+        
         <div className="checkout-container">
           <div className="empty-cart-message">
             <h2>Your cart is empty</h2>
@@ -137,7 +136,6 @@ const { items, subtotal, clearCart, updateQuantity, removeItem } = useCart();
   
   return (
     <>
-      <Navbar />
       <div className="checkout-container">
         <h1>Checkout</h1>
         

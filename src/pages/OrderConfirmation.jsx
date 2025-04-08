@@ -1,8 +1,6 @@
 // src/pages/OrderConfirmation.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 import '../styles/OrderConfirmation.css';
 
 const OrderConfirmation = () => {
@@ -18,7 +16,7 @@ const OrderConfirmation = () => {
   
   return (
     <>
-      <Navbar />
+    
       <div className="confirmation-container">
         <div className="confirmation-card">
           <div className="confirmation-header">
@@ -55,16 +53,19 @@ const OrderConfirmation = () => {
           </div>
           
           <div className="confirmation-actions">
-            <Link to="/dashboard" className="action-button primary">
-              Track Your Order
-            </Link>
+          <Link 
+  to={`/order-tracking/${order.id}`} 
+  className="action-button primary"
+>
+  Track Your Order
+</Link>
             <Link to="/restaurants" className="action-button secondary">
               Continue Shopping
             </Link>
           </div>
         </div>
       </div>
-      <Footer />
+    
     </>
   );
 };

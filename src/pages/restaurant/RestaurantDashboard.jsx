@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import Navbar from '../../components/Navbar';
+
 import Footer from '../../components/Footer';
 import '../../styles/restaurant/RestaurantDashboard.css';
 
@@ -127,7 +127,6 @@ const RestaurantDashboard = () => {
     if (loading) {
       return (
         <>
-          <Navbar />
           <div className="restaurant-loading-container">
             <p>Loading dashboard data...</p>
           </div>
@@ -138,7 +137,7 @@ const RestaurantDashboard = () => {
   
     return (
       <>
-        <Navbar />
+       
         <div className="restaurant-dashboard-container">
           <div className="restaurant-dashboard-header">
             <h1>Restaurant Dashboard</h1>

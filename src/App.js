@@ -3,7 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import ProtectedRoute from './components/ProtectedRoute';
-
+// At the top of your App.js file, add these imports:
+import CustomerLayout from './layouts/CustomerLayout';
+import OrderHistory from './pages/OrderHistory';
+import OrderTracking from './pages/OrderTracking';
 // Pages
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
@@ -42,143 +45,168 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
-              
+
               {/* Protected routes - Customer */}
-              <Route 
-                path="/dashboard" 
+              <Route
+                path="/dashboard"
                 element={
                   <ProtectedRoute>
                     <Navbar />
                     <Dashboard />
                     <Footer />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/restaurants" 
+              <Route
+                path="/restaurants"
                 element={
                   <ProtectedRoute>
                     <Navbar />
                     <RestaurantListing />
                     <Footer />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/restaurants/:id" 
+              <Route
+                path="/restaurants/:id"
                 element={
                   <ProtectedRoute>
                     <Navbar />
                     <RestaurantDetail />
                     <Footer />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/checkout" 
+              <Route
+                path="/checkout"
                 element={
                   <ProtectedRoute>
                     <Navbar />
                     <Checkout />
                     <Footer />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/cart" 
+              <Route
+                path="/cart"
                 element={
                   <ProtectedRoute>
                     <Navbar />
                     <Cart />
                     <Footer />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/order-confirmation" 
+              <Route
+                path="/order-confirmation"
                 element={
                   <ProtectedRoute>
                     <Navbar />
                     <OrderConfirmation />
                     <Footer />
                   </ProtectedRoute>
+                }
+              />
+              <Route 
+                path="/order-tracking/:orderId" 
+                element={
+                  <ProtectedRoute>
+                    <Navbar />
+                    <OrderTracking />
+                    <Footer />
+                  </ProtectedRoute>
                 } 
               />
-              
+
               {/* Protected routes - Delivery */}
-              <Route 
-                path="/Delivery/dashboard" 
+              <Route
+                path="/Delivery/dashboard"
                 element={
                   <ProtectedRoute>
                     <Navbar />
                     <DeliveryDashboard />
                     <Footer />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/Delivery/available-orders" 
+              <Route
+                path="/Delivery/available-orders"
                 element={
                   <ProtectedRoute>
                     <Navbar />
                     <AvailableOrders />
                     <Footer />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/Delivery/order/:orderId" 
+              <Route
+                path="/Delivery/order/:orderId"
                 element={
                   <ProtectedRoute>
                     <Navbar />
                     <DeliveryOrderPage />
                     <Footer />
                   </ProtectedRoute>
-                } 
+                }
               />
-              
+
               {/* Protected routes - Restaurant */}
-              <Route 
-                path="/Restaurant/dashboard" 
+              <Route
+                path="/Restaurant/dashboard"
                 element={
                   <ProtectedRoute>
                     <Navbar />
                     <RestaurantDashboard />
                     <Footer />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/Restaurant/menu" 
+              <Route
+                path="/Restaurant/menu"
                 element={
                   <ProtectedRoute>
                     <Navbar />
                     <ManageMenu />
                     <Footer />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/Restaurant/orders" 
+              <Route
+                path="/Restaurant/orders"
                 element={
                   <ProtectedRoute>
                     <Navbar />
                     <OrderProcessing />
                     <Footer />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/Restaurant/settings" 
+
+              <Route
+                path="/Restaurant/settings"
                 element={
                   <ProtectedRoute>
                     <Navbar />
                     <RestaurantSettings />
                     <Footer />
                   </ProtectedRoute>
-                } 
+                }
               />
-              
+
+
+<Route 
+  path="/orders" 
+  element={
+    <ProtectedRoute>
+      <CustomerLayout>
+        <OrderHistory />
+      </CustomerLayout>
+    </ProtectedRoute>
+  } 
+/>
+
+
+
               {/* 404 route */}
               <Route path="*" element={<NotFound />} />
             </Routes>

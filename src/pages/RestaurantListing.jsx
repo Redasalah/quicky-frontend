@@ -1,7 +1,6 @@
 // src/pages/RestaurantListing.jsx
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import '../styles/RestaurantListing.css';
 
@@ -140,7 +139,7 @@ const RestaurantListing = () => {
 
   return (
     <>
-      <Navbar />
+      
       <div className="restaurant-listing-container">
         <div className="restaurant-listing-header">
           <h1>Restaurants Near You</h1>

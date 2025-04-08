@@ -1,6 +1,6 @@
 // src/layouts/CustomerLayout.jsx
 import React from 'react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'; // <-- This is the only change
 import Footer from '../components/Footer';
 
 const CustomerLayout = ({ children }) => {

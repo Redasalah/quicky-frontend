@@ -200,7 +200,7 @@ const RestaurantDetail = () => {
 
   return (
     <>
-      <Navbar />
+      
       <div className="restaurant-detail-container">
         <div 
           className="restaurant-banner" 

@@ -1,6 +1,6 @@
 // src/pages/Dashboard.jsx
 import React from 'react';
-import Navbar from '../components/Navbar';
+
 import Footer from '../components/Footer';
 import '../styles/Dashboard.css';
 
@@ -59,7 +59,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <Navbar />
+    
       <div className="dashboard-container">
         <div className="dashboard-header">
           <h1>Welcome, {userInfo.name}!</h1>

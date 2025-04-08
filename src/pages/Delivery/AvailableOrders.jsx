@@ -1,8 +1,7 @@
 // src/pages/delivery/AvailableOrders.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+
 import '../../styles/Delivery/AvailableOrders.css';
 
 const AvailableOrders = () => {
@@ -133,7 +132,6 @@ const AvailableOrders = () => {
 
   return (
     <>
-      <Navbar />
       <div className="available-orders-container">
         <div className="available-orders-header">
           <h1>Available Orders</h1>
@@ -241,7 +239,7 @@ const AvailableOrders = () => {
           </div>
         )}
       </div>
-      <Footer />
+    
     </>
   );
 };
