@@ -1,0 +1,120 @@
+/* src/styles/OrderConfirmation.css */
+.confirmation-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px - 300px); /* Adjust based on navbar and footer heights */
+    padding: 2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .confirmation-card {
+    max-width: 600px;
+    width: 100%;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .confirmation-header {
+    background-color: #ff4757;
+    color: white;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .confirmation-header h1 {
+    margin: 0.5rem 0;
+    font-size: 2rem;
+  }
+  
+  .confirmation-header p {
+    opacity: 0.9;
+    margin: 0;
+  }
+  
+  .check-icon {
+    background-color: white;
+    color: #ff4757;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .order-details {
+    padding: 2rem;
+  }
+  
+  .order-detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .order-detail-row:last-child {
+    border-bottom: none;
+  }
+  
+  .order-detail-row span:first-child {
+    color: #666;
+  }
+  
+  .order-status {
+    color: #28a745;
+    font-weight: 600;
+  }
+  
+  .order-detail-row.total {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+  }
+  
+  .confirmation-actions {
+    display: flex;
+    padding: 0 2rem 2rem;
+    gap: 1rem;
+  }
+  
+  .action-button {
+    flex: 1;
+    padding: 0.75rem;
+    text-align: center;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  
+  .action-button.primary {
+    background-color: #ff4757;
+    color: white;
+  }
+  
+  .action-button.primary:hover {
+    background-color: #ff6b81;
+  }
+  
+  .action-button.secondary {
+    border: 1px solid #ff4757;
+    color: #ff4757;
+    background-color: white;
+  }
+  
+  .action-button.secondary:hover {
+    background-color: #fff5f6;
+  }
+  
+  @media (max-width: 576px) {
+    .confirmation-actions {
+      flex-direction: column;
+    }
+  }

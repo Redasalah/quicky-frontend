@@ -1,0 +1,306 @@
+/* src/styles/restaurant/ManageMenu.css */
+.menu-item-form-container {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .menu-item-form-container h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #2c3e50;
+  }
+  
+  .menu-item-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .menu-item-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #2c3e50;
+  }
+  
+  .menu-item-form input,
+  .menu-item-form textarea,
+  .menu-item-form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .menu-item-form textarea {
+    height: 100px;
+    resize: vertical;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .form-row .form-group {
+    flex: 1;
+  }
+  
+  .checkbox-row {
+    margin-top: 10px;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .checkbox-group input {
+    width: auto;
+    margin-right: 10px;
+  }
+  
+  .checkbox-group label {
+    margin-bottom: 0;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .cancel-button,
+  .save-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .cancel-button {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+  }
+  
+  .cancel-button:hover {
+    background-color: #bdc3c7;
+  }
+  
+  .save-button {
+    background-color: #3498db;
+    color: #fff;
+  }
+  
+  .save-button:hover {
+    background-color: #2980b9;
+  }
+  
+  .add-item-button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .add-item-button:hover {
+    background-color: #2980b9;
+  }
+  
+  .menu-category-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+  }
+  
+  .menu-category-tabs button {
+    padding: 10px 20px;
+    background-color: #ecf0f1;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background-color 0.3s;
+  }
+  
+  .menu-category-tabs button:hover {
+    background-color: #bdc3c7;
+  }
+  
+  .menu-category-tabs button.active {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .menu-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+  }
+  
+  .menu-item-card {
+    display: flex;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .menu-item-card.unavailable {
+    opacity: 0.7;
+  }
+  
+  .menu-item-image {
+    width: 150px;
+    height: 150px;
+    background-color: #ecf0f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .menu-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .placeholder-image {
+    color: #95a5a6;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .menu-item-details {
+    flex: 1;
+    padding: 15px;
+    position: relative;
+  }
+  
+  .menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+  
+  .menu-item-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #2c3e50;
+  }
+  
+  .menu-item-badges {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .menu-item-badges span {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  
+  .popular-badge {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  .availability-badge {
+    background-color: #27ae60;
+    color: white;
+  }
+  
+  .availability-badge.unavailable {
+    background-color: #7f8c8d;
+  }
+  
+  .menu-item-description {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #7f8c8d;
+    line-height: 1.4;
+  }
+  
+  .menu-item-price {
+    font-weight: bold;
+    font-size: 16px;
+    color: #2c3e50;
+    margin: 10px 0;
+  }
+  
+  .menu-item-category {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin: 5px 0;
+  }
+  
+  .menu-item-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+  
+  .edit-button,
+  .toggle-button,
+  .delete-button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .edit-button {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .edit-button:hover {
+    background-color: #2980b9;
+  }
+  
+  .toggle-button {
+    background-color: #f39c12;
+    color: white;
+  }
+  
+  .toggle-button:hover {
+    background-color: #d35400;
+  }
+  
+  .delete-button {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  .delete-button:hover {
+    background-color: #c0392b;
+  }
+  
+  .no-items-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    color: #7f8c8d;
+    font-size: 16px;
+  }
