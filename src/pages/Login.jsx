@@ -1,5 +1,5 @@
 // src/pages/Login.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Auth.css';
@@ -7,134 +7,105 @@ import '../styles/Auth.css';
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { login, getDashboardUrl } = useAuth();
+  const { login, error, setError } = useAuth();
   
-  // Check if there's a message in location state (e.g., from registration)
-  const [message, setMessage] = useState(location.state?.message || '');
-  
+  // State for form data
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
   
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  // State for form validation errors
+  const [formErrors, setFormErrors] = useState({});
+  
+  // State for loading
+  const [isLoading, setIsLoading] = useState(false);
+  
+  // Check for registration success message
+  const [successMessage, setSuccessMessage] = useState(
+    location.state?.message || ''
+  );
+  
+  // Clear success/error messages when component unmounts
+  useEffect(() => {
+    return () => {
+      setError(null);
+      // Clear location state to prevent message persisting
+      if (location.state?.message) {
+        navigate(location.pathname, { replace: true });
+      }
+    };
+  }, [setError, navigate, location]);
   
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
     
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors({
-        ...errors,
+    // Clear specific field error when user starts typing
+    if (formErrors[name]) {
+      setFormErrors(prev => ({
+        ...prev,
         [name]: ''
-      });
+      }));
     }
     
     // Clear success message when user starts typing
-    if (message) {
-      setMessage('');
+    if (successMessage) {
+      setSuccessMessage('');
     }
+    
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
   
   const validateForm = () => {
-    const newErrors = {};
+    const errors = {};
     
     // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      errors.email = 'Email is required';
+    } else if (!emailRegex.test(formData.email)) {
+      errors.email = 'Invalid email format';
     }
     
     // Validate password
     if (!formData.password) {
-      newErrors.password = 'Password is required';
+      errors.password = 'Password is required';
     }
     
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
   
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (validateForm()) {
-      setIsSubmitting(true);
-      
-      try {
-        // Use the login function from AuthContext
-        const result = await login(formData.email, formData.password);
-        
-        if (result.success) {
-          // Use the getDashboardUrl function to navigate to the appropriate dashboard
-          navigate(getDashboardUrl());
-        } else {
-          setErrors({
-            form: result.error || 'Invalid email or password. Please try again.'
-          });
-        }
-      } catch (error) {
-        console.error('Error logging in:', error);
-        setErrors({
-          form: 'An unexpected error occurred. Please try again.'
-        });
-      } finally {
-        setIsSubmitting(false);
-      }
-    }
-  };
-  
-  // Helper text to instruct users on role-based login
-  const loginHelperText = (
-    <div className="login-helper-text">
-      <p>Demo Login Credentials:</p>
-      <ul>
-        <li>Customer: any email without "delivery" or "restaurant" (e.g., user@example.com)</li>
-        <li>Delivery Personnel: any email containing "delivery" (e.g., delivery@example.com)</li>
-        <li>Restaurant Staff: any email containing "restaurant" (e.g., restaurant@example.com)</li>
-      </ul>
-    </div>
-  );
-  
-  // Quick login buttons for different roles
-  const handleQuickLogin = async (role) => {
-    setIsSubmitting(true);
-    let email = '';
+    // Reset any previous errors
+    setError(null);
     
-    switch(role) {
-      case 'CUSTOMER':
-        email = 'customer@example.com';
-        break;
-      case 'DELIVERY_PERSONNEL':
-        email = 'delivery@example.com';
-        break;
-      case 'RESTAURANT_STAFF':
-        email = 'restaurant@example.com';
-        break;
-      default:
-        email = 'customer@example.com';
+    // Validate form
+    if (!validateForm()) {
+      return;
     }
     
-    try {
-      const result = await login(email, 'password123');
-      
-      if (result.success) {
-        navigate(getDashboardUrl());
-      } else {
-        setErrors({
-          form: result.error || 'Quick login failed. Please try again.'
-        });
-      }
-    } catch (error) {
-      console.error('Error with quick login:', error);
-      setErrors({
-        form: 'An unexpected error occurred. Please try again.'
-      });
-    } finally {
-      setIsSubmitting(false);
+    // Set loading state
+    setIsLoading(true);
+    
+    // Attempt login
+    const result = await login(
+      formData.email, 
+      formData.password
+    );
+    
+    // Stop loading
+    setIsLoading(false);
+    
+    // Handle login result
+    if (result.success) {
+      // Redirect to dashboard or home page
+      navigate('/dashboard');
     }
   };
   
@@ -143,12 +114,22 @@ const Login = () => {
       <div className="auth-form-container">
         <h2 className="auth-title">Welcome Back</h2>
         
-        {message && <div className="success-message">{message}</div>}
-        {errors.form && <div className="error-message">{errors.form}</div>}
+        {/* Success message */}
+        {successMessage && (
+          <div className="success-banner">
+            {successMessage}
+          </div>
+        )}
         
-        {loginHelperText}
+        {/* Global error message */}
+        {error && (
+          <div className="error-banner">
+            {error}
+          </div>
+        )}
         
         <form onSubmit={handleSubmit} className="auth-form">
+          {/* Email Input */}
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -157,11 +138,15 @@ const Login = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={errors.email ? 'input-error' : ''}
+              className={formErrors.email ? 'input-error' : ''}
+              placeholder="Enter your email"
             />
-            {errors.email && <div className="error-message">{errors.email}</div>}
+            {formErrors.email && (
+              <span className="error-message">{formErrors.email}</span>
+            )}
           </div>
           
+          {/* Password Input */}
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
@@ -170,53 +155,42 @@ const Login = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className={errors.password ? 'input-error' : ''}
+              className={formErrors.password ? 'input-error' : ''}
+              placeholder="Enter your password"
             />
-            {errors.password && <div className="error-message">{errors.password}</div>}
+            {formErrors.password && (
+              <span className="error-message">{formErrors.password}</span>
+            )}
           </div>
           
+          {/* Forgot Password Link */}
           <div className="forgot-password">
             <Link to="/forgot-password">Forgot password?</Link>
           </div>
           
+          {/* Submit Button */}
           <button 
             type="submit" 
-            className="auth-button" 
-            disabled={isSubmitting}
+            className="auth-button"
+            disabled={isLoading}
           >
-            {isSubmitting ? 'Logging in...' : 'Login'}
+            {isLoading ? 'Logging in...' : 'Log In'}
           </button>
         </form>
         
-        <div className="quick-login">
-          <p>Quick login as:</p>
-          <div className="quick-login-buttons">
-            <button 
-              onClick={() => handleQuickLogin('CUSTOMER')}
-              className="quick-login-button customer"
-              disabled={isSubmitting}
-            >
-              Customer
-            </button>
-            <button 
-              onClick={() => handleQuickLogin('DELIVERY_PERSONNEL')}
-              className="quick-login-button delivery"
-              disabled={isSubmitting}
-            >
-              Delivery
-            </button>
-            <button 
-              onClick={() => handleQuickLogin('RESTAURANT_STAFF')}
-              className="quick-login-button restaurant"
-              disabled={isSubmitting}
-            >
-              Restaurant
-            </button>
-          </div>
-        </div>
-        
+        {/* Redirect to Sign Up */}
         <div className="auth-redirect">
           Don't have an account? <Link to="/signup">Sign Up</Link>
+        </div>
+        
+        {/* Terms and Conditions */}
+        <div className="auth-terms">
+          <p>
+            By continuing, you agree to our 
+            <Link to="/terms"> Terms of Service </Link> 
+            and 
+            <Link to="/privacy"> Privacy Policy</Link>
+          </p>
         </div>
       </div>
     </div>

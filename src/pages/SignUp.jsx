@@ -6,7 +6,7 @@ import '../styles/Auth.css';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { register } = useAuth();
+  const { register, error, setError } = useAuth();
   
   const [formData, setFormData] = useState({
     firstName: '',
@@ -14,110 +14,101 @@ const SignUp = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'CUSTOMER' // Default role
+    role: 'CUSTOMER'
   });
   
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+  
+  // Clear any existing errors when component mounts
+  React.useEffect(() => {
+    setError(null);
+    return () => setError(null);
+  }, [setError]);
   
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
     
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors({
-        ...errors,
+    // Clear specific field error when user starts typing
+    if (formErrors[name]) {
+      setFormErrors(prev => ({
+        ...prev,
         [name]: ''
-      });
+      }));
     }
+    
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
   
   const validateForm = () => {
-    const newErrors = {};
+    const errors = {};
     
     // Validate first name
     if (!formData.firstName.trim()) {
-      newErrors.firstName = 'First name is required';
+      errors.firstName = 'First name is required';
     }
     
     // Validate last name
     if (!formData.lastName.trim()) {
-      newErrors.lastName = 'Last name is required';
+      errors.lastName = 'Last name is required';
     }
     
     // Validate email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
+      errors.email = 'Email is required';
+    } else if (!emailRegex.test(formData.email)) {
+      errors.email = 'Invalid email format';
     }
     
     // Validate password
     if (!formData.password) {
-      newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+      errors.password = 'Password is required';
+    } else if (formData.password.length < 8) {
+      errors.password = 'Password must be at least 8 characters';
     }
     
     // Validate confirm password
     if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
+      errors.confirmPassword = 'Passwords do not match';
     }
     
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
   
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    if (validateForm()) {
-      setIsSubmitting(true);
-      
-      try {
-        // Use the register function from AuthContext
-        const userData = {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          password: formData.password,
-          role: formData.role
-        };
-        
-        const result = await register(userData);
-        
-        if (result.success) {
-          // Reset form after successful submission
-          setFormData({
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            role: 'CUSTOMER'
-          });
-          
-          // Navigate to login page with success message
-          navigate('/login', { 
-            state: { message: 'Registration successful! Please login with your credentials.' }
-          });
-        } else {
-          setErrors({
-            form: result.error || 'Failed to register. Please try again.'
-          });
-        }
-      } catch (error) {
-        console.error('Error registering user:', error);
-        setErrors({
-          form: 'An unexpected error occurred. Please try again.'
-        });
-      } finally {
-        setIsSubmitting(false);
-      }
+    // Reset any previous errors
+    setError(null);
+    
+    // Validate form
+    if (!validateForm()) {
+      return;
+    }
+    
+    // Prepare registration data
+    const registrationData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      password: formData.password,
+      role: formData.role
+    };
+    
+    // Attempt registration
+    const result = await register(registrationData);
+    
+    if (result.success) {
+      // Navigate to login page with success message
+      navigate('/login', { 
+        state: { 
+          message: 'Registration successful. Please log in.' 
+        } 
+      });
     }
   };
   
@@ -126,9 +117,15 @@ const SignUp = () => {
       <div className="auth-form-container">
         <h2 className="auth-title">Create an Account</h2>
         
-        {errors.form && <div className="error-message">{errors.form}</div>}
+        {/* Global error message */}
+        {error && (
+          <div className="error-banner">
+            {error}
+          </div>
+        )}
         
         <form onSubmit={handleSubmit} className="auth-form">
+          {/* First Name */}
           <div className="form-group">
             <label htmlFor="firstName">First Name</label>
             <input
@@ -137,11 +134,14 @@ const SignUp = () => {
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className={errors.firstName ? 'input-error' : ''}
+              className={formErrors.firstName ? 'input-error' : ''}
             />
-            {errors.firstName && <div className="error-message">{errors.firstName}</div>}
+            {formErrors.firstName && (
+              <span className="error-message">{formErrors.firstName}</span>
+            )}
           </div>
           
+          {/* Last Name */}
           <div className="form-group">
             <label htmlFor="lastName">Last Name</label>
             <input
@@ -150,11 +150,14 @@ const SignUp = () => {
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              className={errors.lastName ? 'input-error' : ''}
+              className={formErrors.lastName ? 'input-error' : ''}
             />
-            {errors.lastName && <div className="error-message">{errors.lastName}</div>}
+            {formErrors.lastName && (
+              <span className="error-message">{formErrors.lastName}</span>
+            )}
           </div>
           
+          {/* Email */}
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -163,11 +166,14 @@ const SignUp = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={errors.email ? 'input-error' : ''}
+              className={formErrors.email ? 'input-error' : ''}
             />
-            {errors.email && <div className="error-message">{errors.email}</div>}
+            {formErrors.email && (
+              <span className="error-message">{formErrors.email}</span>
+            )}
           </div>
           
+          {/* Password */}
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
@@ -176,11 +182,14 @@ const SignUp = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className={errors.password ? 'input-error' : ''}
+              className={formErrors.password ? 'input-error' : ''}
             />
-            {errors.password && <div className="error-message">{errors.password}</div>}
+            {formErrors.password && (
+              <span className="error-message">{formErrors.password}</span>
+            )}
           </div>
           
+          {/* Confirm Password */}
           <div className="form-group">
             <label htmlFor="confirmPassword">Confirm Password</label>
             <input
@@ -189,13 +198,16 @@ const SignUp = () => {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className={errors.confirmPassword ? 'input-error' : ''}
+              className={formErrors.confirmPassword ? 'input-error' : ''}
             />
-            {errors.confirmPassword && <div className="error-message">{errors.confirmPassword}</div>}
+            {formErrors.confirmPassword && (
+              <span className="error-message">{formErrors.confirmPassword}</span>
+            )}
           </div>
           
+          {/* Role Selection */}
           <div className="form-group">
-            <label htmlFor="role">I am a:</label>
+            <label htmlFor="role">Account Type</label>
             <select
               id="role"
               name="role"
@@ -203,25 +215,23 @@ const SignUp = () => {
               onChange={handleChange}
             >
               <option value="CUSTOMER">Customer</option>
-              <option value="RESTAURANT_STAFF">Restaurant Owner</option>
-              <option value="DELIVERY_PERSONNEL">Delivery Driver</option>
+              <option value="RESTAURANT_STAFF">Restaurant Staff</option>
+              <option value="DELIVERY_PERSONNEL">Delivery Personnel</option>
             </select>
           </div>
           
+          {/* Submit Button */}
           <button 
             type="submit" 
-            className="auth-button" 
-            disabled={isSubmitting}
+            className="auth-button"
           >
-            {isSubmitting ? 'Creating Account...' : 'Sign Up'}
+            Create Account
           </button>
         </form>
         
+        {/* Redirect to Login */}
         <div className="auth-redirect">
-          Already have an account? <Link to="/login">Login</Link>
-        </div>
-        <div className="sign-info">
-         <p>By continuing, you agree to receive calls, WhatsApp messages, or SMS/RCS messages at the number provided, including automated ones, from Uber and its affiliates.</p>
+          Already have an account? <Link to="/login">Log In</Link>
         </div>
       </div>
     </div>
